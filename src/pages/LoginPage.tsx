@@ -1,6 +1,6 @@
-import React from "react";
+import { Button } from "@/components/ui/button";
 
-const LoginPage: React.FC = () => {
+const LoginPage = () => {
   return (
     <div>
       <h1 className="text-xl font-bold mb-6 text-center">Login</h1>
@@ -15,12 +15,7 @@ const LoginPage: React.FC = () => {
           placeholder="Password"
           className="border rounded px-3 py-2"
         />
-        <button
-          type="submit"
-          className="bg-blue-600 text-white rounded px-4 py-2 font-semibold hover:bg-blue-700"
-        >
-          Login
-        </button>
+        <Button>Login</Button>
       </form>
     </div>
   );
