@@ -9,18 +9,18 @@ import LoginPage from "../pages/LoginPage";
 const AppRouter: React.FC = () => (
   <BrowserRouter>
     <Routes>
-      {/* 登录页单独布局 */}
+      {/* Login page */}
       <Route element={<LoginLayout />}>
         <Route path="/login" element={<LoginPage />} />
       </Route>
-      {/* 主业务布局 */}
+      {/* Main layout */}
       <Route element={<MainLayout />}>
         <Route path="/" element={<Navigate to="/dashboard" replace />} />
         <Route path="/dashboard" element={<DashboardPage />} />
         <Route path="/users" element={<UserListPage />} />
-        {/* 其他业务路由 */}
+        {/* Other business routes */}
       </Route>
-      {/* 404 */}
+      {/* 404 page */}
       <Route
         path="*"
         element={
