@@ -1,6 +1,6 @@
 # React Admin Blocks 🚀
 
-A modular collection of reusable React features for building enterprise-grade admin systems.  
+A modular collection of reusable React features for building enterprise-grade admin systems, styled with shadcn/ui for a modern, minimal, and customizable UI experience.
 Built with modern tools and engineering practices to speed up development of internal dashboards and management tools.
 
 ## 🌟 Features
@@ -42,9 +42,9 @@ src/
 ## 🛠️ Tech Stack
 
 - React 19 + Vite + TypeScript
+- React Router 7
+- Tailwind CSS + shadcn/ui
 - Zustand (or Redux Toolkit)
-- React Router 6
-- Tailwind CSS / shadcn/ui
 - React Hook Form + Zod
 - Axios + API abstraction
 - GitHub Actions (CI-ready)
@@ -53,12 +53,12 @@ src/
 
 | Module              | Status |
 | ------------------- | ------ |
-| 🔐 Auth & RBAC      | ✅     |
-| 👥 User Management  | ✅     |
+| 🔐 Auth & RBAC      | 🔄     |
+| 👥 User Management  | 🔄     |
 | 📊 Charts Dashboard | 🔄     |
-| 📝 Dynamic Forms    | ✅     |
+| 📝 Dynamic Forms    | 🔄     |
 | 📁 File Upload      | 🔄     |
-| 🌍 i18n Support     | ✅     |
+| 🌍 i18n Support     | 🔄     |
 
 ## 📦 Getting Started
 
