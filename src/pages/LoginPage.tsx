@@ -1,23 +1,32 @@
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardContent,
+  CardFooter,
+} from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 
 const LoginPage = () => {
   return (
-    <div>
-      <h1 className="text-xl font-bold mb-6 text-center">Login</h1>
-      <form className="flex flex-col gap-4">
-        <input
-          type="text"
-          placeholder="Username"
-          className="border rounded px-3 py-2"
-        />
-        <input
-          type="password"
-          placeholder="Password"
-          className="border rounded px-3 py-2"
-        />
-        <Button>Login</Button>
-      </form>
-    </div>
+    <Card className="w-full max-w-md shadow-lg">
+      <CardHeader>
+        <CardTitle className="text-2xl">Sign in to Admin</CardTitle>
+      </CardHeader>
+      <CardContent>
+        <form className="space-y-4">
+          <Input type="text" placeholder="Username" />
+          <Input type="password" placeholder="Password" />
+          <Button type="submit" className="w-full">
+            Sign In
+          </Button>
+        </form>
+      </CardContent>
+      <CardFooter className="text-xs text-muted-foreground text-center">
+        © 2025 React Admin Blocks
+      </CardFooter>
+    </Card>
   );
 };
 
