@@ -15,6 +15,35 @@ Built with modern tools and engineering practices to speed up development of int
 - 🎭 Mock API with MSW (No Backend Required)
 - 🎯 Designed for Real-world Admin Systems
 
+## 📦 Getting Started
+
+```bash
+pnpm install
+pnpm dev
+```
+
+## 🛠️ Tech Stack
+
+- React 19 + Vite + TypeScript
+- React Router 7
+- Tailwind CSS + shadcn/ui
+- Redux Toolkit
+- Mock Service Worker (MSW)
+- React Hook Form + Zod
+- Axios + API abstraction
+- GitHub Actions (CI-ready)
+
+## 🎭 Mock API
+
+This project uses **Mock Service Worker (MSW)** to provide a complete backend experience without requiring a real server. All API interactions are intercepted and mocked, including:
+
+- User authentication and authorization
+- CRUD operations for user management
+- Dashboard statistics and data
+- Form submissions and validation
+
+The mock API runs in all environments (development and production), making this project a fully functional demo that can be deployed anywhere without backend dependencies.
+
 ## 📁 Directory Structure Design
 
 ```plaintext
@@ -41,17 +70,6 @@ src/
   └── vite-env.d.ts     # Vite environment types
 ```
 
-## 🛠️ Tech Stack
-
-- React 19 + Vite + TypeScript
-- React Router 7
-- Tailwind CSS + shadcn/ui
-- Redux Toolkit
-- Mock Service Worker (MSW)
-- React Hook Form + Zod
-- Axios + API abstraction
-- GitHub Actions (CI-ready)
-
 ## 🚧 Blocks (Features)
 
 | Module              | Status |
@@ -62,21 +80,3 @@ src/
 | 📝 Dynamic Forms    | 🔄     |
 | 📁 File Upload      | 🔄     |
 | 🌍 i18n Support     | 🔄     |
-
-## 🎭 Mock API
-
-This project uses **Mock Service Worker (MSW)** to provide a complete backend experience without requiring a real server. All API interactions are intercepted and mocked, including:
-
-- User authentication and authorization
-- CRUD operations for user management
-- Dashboard statistics and data
-- Form submissions and validation
-
-The mock API runs in all environments (development and production), making this project a fully functional demo that can be deployed anywhere without backend dependencies.
-
-## 📦 Getting Started
-
-```bash
-pnpm install
-pnpm dev
-```
