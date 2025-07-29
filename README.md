@@ -44,7 +44,7 @@ src/
 - React 19 + Vite + TypeScript
 - React Router 7
 - Tailwind CSS + shadcn/ui
-- Zustand (or Redux Toolkit)
+- Redux Toolkit
 - React Hook Form + Zod
 - Axios + API abstraction
 - GitHub Actions (CI-ready)
