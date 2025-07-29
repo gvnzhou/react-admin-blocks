@@ -12,6 +12,7 @@ Built with modern tools and engineering practices to speed up development of int
 - 📊 Chart Demos using AntV G2 / ECharts
 - 🌍 i18n Internationalization Support
 - ✅ Type-safe Codebase using TypeScript
+- 🎭 Mock API with MSW (No Backend Required)
 - 🎯 Designed for Real-world Admin Systems
 
 ## 📁 Directory Structure Design
@@ -27,9 +28,10 @@ src/
   │   └── ...           # Other modules
   ├── hooks/            # Custom reusable hooks
   ├── layouts/          # Layout components (main frame, login layout, etc.)
+  ├── mocks/            # MSW mock handlers and browser setup
   ├── pages/            # Route entry pages (aggregating feature pages)
   ├── router/           # Route configuration
-  ├── store/            # Global state management (Zustand/Redux)
+  ├── store/            # Global state management (Redux Toolkit)
   ├── utils/            # Utility functions
   ├── services/         # API abstraction (axios instance, API methods)
   ├── locales/          # i18n resources
@@ -45,6 +47,7 @@ src/
 - React Router 7
 - Tailwind CSS + shadcn/ui
 - Redux Toolkit
+- Mock Service Worker (MSW)
 - React Hook Form + Zod
 - Axios + API abstraction
 - GitHub Actions (CI-ready)
@@ -59,6 +62,17 @@ src/
 | 📝 Dynamic Forms    | 🔄     |
 | 📁 File Upload      | 🔄     |
 | 🌍 i18n Support     | 🔄     |
+
+## 🎭 Mock API
+
+This project uses **Mock Service Worker (MSW)** to provide a complete backend experience without requiring a real server. All API interactions are intercepted and mocked, including:
+
+- User authentication and authorization
+- CRUD operations for user management
+- Dashboard statistics and data
+- Form submissions and validation
+
+The mock API runs in all environments (development and production), making this project a fully functional demo that can be deployed anywhere without backend dependencies.
 
 ## 📦 Getting Started
 
