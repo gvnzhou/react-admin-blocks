@@ -5,10 +5,18 @@ import { store } from './store';
 import App from './App.tsx';
 import './index.css';
 
-createRoot(document.getElementById('root')!).render(
-  <StrictMode>
-    <Provider store={store}>
-      <App />
-    </Provider>
-  </StrictMode>,
-);
+// Start MSW (all environments)
+import('./mocks/browser').then(({ worker }) => {
+  worker.start().then(() => {
+    console.log('🎭 MSW is running');
+
+    // Render app after MSW is started
+    createRoot(document.getElementById('root')!).render(
+      <StrictMode>
+        <Provider store={store}>
+          <App />
+        </Provider>
+      </StrictMode>,
+    );
+  });
+});

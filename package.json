@@ -21,6 +21,7 @@
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "lucide-react": "^0.528.0",
+    "msw": "^2.10.4",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "react-redux": "^9.2.0",
@@ -46,5 +47,10 @@
     "typescript": "~5.8.3",
     "typescript-eslint": "^8.35.1",
     "vite": "^7.0.4"
+  },
+  "msw": {
+    "workerDirectory": [
+      "public"
+    ]
   }
 }
