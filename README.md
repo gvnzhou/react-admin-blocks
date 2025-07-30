@@ -57,6 +57,8 @@ src/
   │   └── ...           # Other modules
   ├── hooks/            # Custom reusable hooks
   ├── layouts/          # Layout components (main frame, login layout, etc.)
+  ├── schemas/          # Zod validation schemas with auto-generated TypeScript types
+  ├── types/            # Pure TypeScript type definitions
   ├── mocks/            # MSW mock handlers and browser setup
   ├── pages/            # Route entry pages (aggregating feature pages)
   ├── router/           # Route configuration
