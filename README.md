@@ -28,6 +28,7 @@ pnpm dev
 - React Router 7
 - Tailwind CSS + shadcn/ui
 - Redux Toolkit
+- TanStack Query (React Query)
 - Mock Service Worker (MSW)
 - React Hook Form + Zod
 - Axios + API abstraction
