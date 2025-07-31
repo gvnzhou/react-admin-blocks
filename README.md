@@ -31,7 +31,6 @@ pnpm dev
 - TanStack Query (React Query)
 - Mock Service Worker (MSW)
 - React Hook Form + Zod
-- Axios + API abstraction
 - GitHub Actions (CI-ready)
 
 ## 🎭 Mock API
