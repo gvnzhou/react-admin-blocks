@@ -1,23 +1,21 @@
-import { useState } from "react";
-import { Outlet, useLocation, useNavigate } from "react-router-dom";
-import {
-  LayoutDashboard,
-  Users,
-  Settings,
-} from "lucide-react";
-import Sidebar, { type NavigationItem as SidebarNavigationItem } from "@/components/layout/Sidebar";
-import Header from "@/components/layout/Header";
+import Header from '@/components/layout/Header';
+import Sidebar, { type NavigationItem as SidebarNavigationItem } from '@/components/layout/Sidebar';
+import { useLogout } from '@/hooks/useAuth';
+import { LayoutDashboard, Settings, Users } from 'lucide-react';
+import { useState } from 'react';
+import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 
 const navigation: SidebarNavigationItem[] = [
-  { name: "Dashboard", href: "/dashboard", icon: LayoutDashboard },
-  { name: "Users", href: "/users", icon: Users },
-  { name: "Settings", href: "/settings", icon: Settings },
+  { name: 'Dashboard', href: '/dashboard', icon: LayoutDashboard },
+  { name: 'Users', href: '/users', icon: Users },
+  { name: 'Settings', href: '/settings', icon: Settings },
 ];
 
 const MainLayout = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
+  const logoutMutation = useLogout();
 
   const handleNavigation = (href: string) => {
     navigate(href);
@@ -25,13 +23,14 @@ const MainLayout = () => {
   };
 
   const handleLogout = () => {
-    navigate("/login");
+    logoutMutation.mutate();
   };
 
   const handleOpenSidebar = () => setSidebarOpen(true);
   const handleCloseSidebar = () => setSidebarOpen(false);
 
-  const currentTitle = navigation.find(item => item.href === location.pathname)?.name || "Dashboard";
+  const currentTitle =
+    navigation.find((item) => item.href === location.pathname)?.name || 'Dashboard';
 
   return (
     <div className="flex h-screen bg-background">
