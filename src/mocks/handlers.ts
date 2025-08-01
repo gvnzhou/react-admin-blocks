@@ -1,13 +1,12 @@
-// src/mocks/handlers.ts
 import { http, HttpResponse } from 'msw';
 
 export const handlers = [
-  // 用户登录
+  // User login
   http.post('/api/auth/login', async ({ request }) => {
     const { username, password } = (await request.json()) as any;
 
-    // 模拟登录验证
-    if (username === 'admin' && password === 'admin') {
+    // Mock login validation
+    if (username === 'admin' && password === 'admin123') {
       return HttpResponse.json({
         success: true,
         token: 'mock-jwt-token-' + Date.now(),
@@ -24,7 +23,7 @@ export const handlers = [
     return HttpResponse.json({ success: false, message: 'Invalid credentials' }, { status: 401 });
   }),
 
-  // 获取用户信息
+  // Get user profile
   http.get('/api/user/profile', () => {
     return HttpResponse.json({
       id: 1,
@@ -36,7 +35,7 @@ export const handlers = [
     });
   }),
 
-  // 用户列表（支持分页）
+  // User list (with pagination)
   http.get('/api/users', ({ request }) => {
     const url = new URL(request.url);
     const page = parseInt(url.searchParams.get('page') || '1');
@@ -67,7 +66,7 @@ export const handlers = [
     });
   }),
 
-  // 创建用户
+  // Create user
   http.post('/api/users', async ({ request }) => {
     const userData = (await request.json()) as any;
     return HttpResponse.json({
@@ -80,7 +79,7 @@ export const handlers = [
     });
   }),
 
-  // 更新用户
+  // Update user
   http.put('/api/users/:id', async ({ params, request }) => {
     const userData = (await request.json()) as any;
     return HttpResponse.json({
@@ -93,7 +92,7 @@ export const handlers = [
     });
   }),
 
-  // 删除用户
+  // Delete user
   http.delete('/api/users/:id', ({ params }) => {
     return HttpResponse.json({
       success: true,
@@ -101,7 +100,7 @@ export const handlers = [
     });
   }),
 
-  // Dashboard 统计数据
+  // Dashboard statistics
   http.get('/api/dashboard/stats', () => {
     return HttpResponse.json({
       totalUsers: 1245,

@@ -1,13 +1,13 @@
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
+import { useLogin } from '@/hooks/useAuth';
 import { loginSchema, type LoginForm } from '@/schemas/auth';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 
 const LoginPage = () => {
-  const [isLoading, setIsLoading] = useState(false);
+  const loginMutation = useLogin();
 
   const {
     register,
@@ -19,30 +19,13 @@ const LoginPage = () => {
   });
 
   const onSubmit = async (data: LoginForm) => {
-    setIsLoading(true);
-
     try {
-      // Simulate API call
-      await new Promise((resolve) => setTimeout(resolve, 1000));
-
-      // Simple mock validation (test credentials: admin / admin123)
-      if (data.username === 'admin' && data.password === 'admin123') {
-        console.log('Login successful:', data);
-        // TODO: Call login API or redirect to dashboard
-        // router.push('/dashboard');
-      } else {
-        setError('root', {
-          type: 'manual',
-          message: 'Invalid username or password',
-        });
-      }
+      await loginMutation.mutateAsync(data);
     } catch (error) {
       setError('root', {
         type: 'manual',
-        message: 'Login failed. Please try again.',
+        message: error instanceof Error ? error.message : 'Login failed. Please try again.',
       });
-    } finally {
-      setIsLoading(false);
     }
   };
 
@@ -87,8 +70,8 @@ const LoginPage = () => {
           )}
 
           {/* Submit Button */}
-          <Button type="submit" className="w-full" disabled={isLoading}>
-            {isLoading ? 'Signing in...' : 'Sign In'}
+          <Button type="submit" className="w-full" disabled={loginMutation.isPending}>
+            {loginMutation.isPending ? 'Signing in...' : 'Sign In'}
           </Button>
         </form>
 
