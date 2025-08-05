@@ -46,30 +46,38 @@ The mock API runs in all environments (development and production), making this 
 
 ## 📁 Directory Structure Design
 
+This project adopts a **hybrid architecture** that combines the benefits of both feature-based and type-based organization:
+
+- **`features/`** - Future home for self-contained business modules
+- **`shared/`** - Common components and utilities used across features
+- **Root-level directories** - Core application structure and global concerns
+
 ```plaintext
 src/
   ├── assets/           # Static assets (images, SVGs, fonts, etc.)
-  ├── components/       # Reusable UI components (Button, Modal, Table, etc.)
   ├── features/         # Business modules (self-contained: pages, components, store, api, types)
-  │   ├── auth/
-  │   ├── user/
-  │   ├── dashboard/
-  │   └── ...           # Other modules
-  ├── hooks/            # Custom reusable hooks
+  │   └── ...           # Feature modules (auth, dashboard, users, etc.)
+  ├── shared/           # Shared components and utilities across features
+  │   ├── components/   # Reusable UI components
+  │   │   ├── auth/     # Authentication components
+  │   │   ├── layout/   # Layout components (Header, Sidebar, etc.)
+  │   │   └── ui/       # Base UI components (Button, Modal, Table, etc.)
+  │   ├── hooks/        # Custom reusable hooks
+  │   ├── schemas/      # Zod validation schemas with auto-generated TypeScript types
+  │   └── locales/      # i18n resources
   ├── layouts/          # Layout components (main frame, login layout, etc.)
-  ├── schemas/          # Zod validation schemas with auto-generated TypeScript types
-  ├── types/            # Pure TypeScript type definitions
+  ├── lib/              # Third-party library configurations and utilities
   ├── mocks/            # MSW mock handlers and browser setup
   ├── pages/            # Route entry pages (aggregating feature pages)
   ├── router/           # Route configuration
+  ├── services/         # API abstraction (fetcher instance, API methods)
   ├── store/            # Global state management (Redux Toolkit)
+  ├── styles/           # Global styles (Tailwind CSS configuration)
+  ├── types/            # Pure TypeScript type definitions
   ├── utils/            # Utility functions
-  ├── services/         # API abstraction (axios instance, API methods)
-  ├── locales/          # i18n resources
-  ├── styles/           # Global styles (Tailwind config, global CSS/SCSS)
-  ├── App.tsx           # App entry
-  ├── main.tsx          # Render entry
-  └── vite-env.d.ts     # Vite environment types
+  ├── App.tsx           # App entry component
+  ├── main.tsx          # Application render entry point
+  └── vite-env.d.ts     # Vite environment type definitions
 ```
 
 ## 🚧 Blocks (Features)
