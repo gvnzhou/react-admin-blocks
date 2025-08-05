@@ -1,11 +1,13 @@
 import React from 'react';
+
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
-import LoginLayout from '../layouts/LoginLayout';
-import MainLayout from '../layouts/MainLayout';
-import DashboardPage from '../pages/DashboardPage';
-import LoginPage from '../pages/LoginPage';
-import UserListPage from '../pages/UserListPage';
-import ProtectedRoute from '../shared/components/auth/ProtectedRoute';
+
+import LoginLayout from '@/layouts/LoginLayout';
+import MainLayout from '@/layouts/MainLayout';
+import DashboardPage from '@/pages/DashboardPage';
+import LoginPage from '@/pages/LoginPage';
+import UserListPage from '@/pages/UserListPage';
+import ProtectedRoute from '@/shared/components/auth/ProtectedRoute';
 
 const AppRouter: React.FC = () => (
   <BrowserRouter>
