@@ -1,4 +1,4 @@
-/* 设计系统变量映射 */
+/* Design system variable mapping */
 @theme inline {
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);

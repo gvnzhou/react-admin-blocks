@@ -1,15 +1,15 @@
-/* 第三方库导入和基础样式 */
+/* Third-party library imports and base styles */
 @import 'tailwindcss';
 @import 'tw-animate-css';
 
-/* 自定义变体 */
+/* Custom variants */
 @custom-variant dark (&:is(.dark *));
 
-/* 导入其他样式文件 */
+/* Import other style files */
 @import './variables.css';
 @import './themes.css';
 
-/* 基础样式重置 */
+/* Base style resets */
 @layer base {
   * {
     @apply border-border outline-ring/50;
