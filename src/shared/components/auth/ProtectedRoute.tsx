@@ -1,5 +1,5 @@
+import { useAuthStatus } from '@/shared/hooks/useAuth';
 import { Navigate, useLocation } from 'react-router-dom';
-import { useAuthStatus } from '@/hooks/useAuth';
 
 interface ProtectedRouteProps {
   children: React.ReactNode;

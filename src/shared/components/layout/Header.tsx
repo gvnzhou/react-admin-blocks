@@ -1,4 +1,4 @@
-import { Button } from '@/components/ui/button';
+import { Button } from '@/shared/components/ui/button';
 import { Menu, Search } from 'lucide-react';
 
 export type HeaderProps = {

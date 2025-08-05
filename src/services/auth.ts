@@ -1,4 +1,4 @@
-import type { LoginForm } from '@/schemas/auth';
+import type { LoginForm } from '@/shared/schemas/auth';
 import { fetcher } from './fetcher';
 
 // API response types

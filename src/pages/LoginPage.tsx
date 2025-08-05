@@ -1,8 +1,8 @@
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
-import { Input } from '@/components/ui/input';
-import { useLogin } from '@/hooks/useAuth';
-import { loginSchema, type LoginForm } from '@/schemas/auth';
+import { Button } from '@/shared/components/ui/button';
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/shared/components/ui/card';
+import { Input } from '@/shared/components/ui/input';
+import { useLogin } from '@/shared/hooks/useAuth';
+import { loginSchema, type LoginForm } from '@/shared/schemas/auth';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 

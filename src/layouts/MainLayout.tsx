@@ -1,6 +1,8 @@
-import Header from '@/components/layout/Header';
-import Sidebar, { type NavigationItem as SidebarNavigationItem } from '@/components/layout/Sidebar';
-import { useLogout } from '@/hooks/useAuth';
+import Header from '@/shared/components/layout/Header';
+import Sidebar, {
+  type NavigationItem as SidebarNavigationItem,
+} from '@/shared/components/layout/Sidebar';
+import { useLogout } from '@/shared/hooks/useAuth';
 import { LayoutDashboard, Settings, Users } from 'lucide-react';
 import { useState } from 'react';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';

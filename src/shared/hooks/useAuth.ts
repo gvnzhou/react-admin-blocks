@@ -1,5 +1,5 @@
-import type { LoginForm } from '@/schemas/auth';
 import { authApi, type LoginResponse } from '@/services/auth';
+import type { LoginForm } from '@/shared/schemas/auth';
 import { type RootState } from '@/store';
 import { initializeAuth, loginSuccess, logout as logoutAction } from '@/store/authSlice';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
