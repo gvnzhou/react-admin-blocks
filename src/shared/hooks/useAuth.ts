@@ -7,12 +7,12 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { type LoginResponse, authApi } from '@/services/auth';
 import type { LoginForm } from '@/shared/schemas/auth';
 import { type RootState } from '@/store';
-import { initializeAuth, loginSuccess, logout as logoutAction } from '@/store/authSlice';
+import { initializeAuth, loginSuccess, logout as logoutAction } from '@/store/userSlice';
 
 // Auth status hook
 export const useAuthStatus = () => {
   const dispatch = useDispatch();
-  const { isAuthenticated, user, token } = useSelector((state: RootState) => state.auth);
+  const { isAuthenticated, user, token } = useSelector((state: RootState) => state.user);
 
   useEffect(() => {
     // Initialize auth state from localStorage on app start
@@ -25,7 +25,6 @@ export const useAuthStatus = () => {
     isAuthenticated,
     user,
     token,
-    isLoading: false, // Could be enhanced to check if user data is being fetched
   };
 };
 
@@ -43,7 +42,14 @@ export const useLogin = () => {
       localStorage.setItem('token', data.token);
 
       // Update Redux store
-      dispatch(loginSuccess({ user: data.user, token: data.token }));
+      dispatch(
+        loginSuccess({
+          user: data.user,
+          token: data.token,
+          roles: data.user.roles,
+          permissions: data.user.permissions,
+        }),
+      );
 
       // Store user data in query cache
       queryClient.setQueryData(['user'], data.user);

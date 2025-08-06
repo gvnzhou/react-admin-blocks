@@ -9,7 +9,7 @@ import type { RootState } from '@/store';
  * Permission check Hook
  */
 export const usePermissions = () => {
-  const { roles, permissions } = useSelector((state: RootState) => state.permission);
+  const { roles, permissions } = useSelector((state: RootState) => state.user);
 
   // User roles and permissions
   const userRoles: Role[] = roles;
@@ -146,7 +146,7 @@ export const usePermissionCheck = (
   requireAllPermissions = false,
   requireAllRoles = false,
 ) => {
-  const { user } = useSelector((state: RootState) => state.auth);
+  const { user } = useSelector((state: RootState) => state.user);
   const { hasAnyPermission, hasAllPermissions, hasAnyRole, hasAllRoles } = usePermissions();
 
   return useMemo(() => {
