@@ -1,10 +1,17 @@
-import { Button } from '@/shared/components/ui/button';
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/shared/components/ui/card';
-import { Input } from '@/shared/components/ui/input';
-import { useLogin } from '@/shared/hooks/useAuth';
-import { loginSchema, type LoginForm } from '@/shared/schemas/auth';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
+
+import {
+  Button,
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+  Input,
+} from '@/shared/components';
+import { useLogin } from '@/shared/hooks';
+import { type LoginForm, loginSchema } from '@/shared/schemas/auth';
 
 const LoginPage = () => {
   const loginMutation = useLogin();

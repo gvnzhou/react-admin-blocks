@@ -1,5 +1,6 @@
-import { Button } from '@/shared/components/ui/button';
 import { Menu, Search } from 'lucide-react';
+
+import { Button } from '@/shared/components';
 
 export type HeaderProps = {
   title: string;

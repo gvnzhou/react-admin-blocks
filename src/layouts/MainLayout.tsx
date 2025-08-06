@@ -1,11 +1,10 @@
-import Header from '@/shared/components/layout/Header';
-import Sidebar, {
-  type NavigationItem as SidebarNavigationItem,
-} from '@/shared/components/layout/Sidebar';
-import { useLogout } from '@/shared/hooks/useAuth';
-import { LayoutDashboard, Settings, Users } from 'lucide-react';
 import { useState } from 'react';
+
+import { LayoutDashboard, Settings, Users } from 'lucide-react';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
+
+import { Header, Sidebar, type NavigationItem as SidebarNavigationItem } from '@/shared/components';
+import { useLogout } from '@/shared/hooks';
 
 const navigation: SidebarNavigationItem[] = [
   { name: 'Dashboard', href: '/dashboard', icon: LayoutDashboard },

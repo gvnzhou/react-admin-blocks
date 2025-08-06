@@ -1,6 +1,7 @@
-import { Button } from '@/shared/components/ui/button';
-import { cn } from '@/utils/cn';
 import { Home, LogOut, X } from 'lucide-react';
+
+import { Button } from '@/shared/components';
+import { cn } from '@/utils/cn';
 
 export type NavigationItem = {
   name: string;
