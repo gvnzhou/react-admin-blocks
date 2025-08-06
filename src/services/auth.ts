@@ -1,4 +1,6 @@
+import { Role } from '@/router/permissionConfig';
 import type { LoginForm } from '@/shared/schemas/auth';
+
 import { fetcher } from './fetcher';
 
 // API response types
@@ -9,7 +11,7 @@ export interface LoginResponse {
     id: number;
     name: string;
     username: string;
-    role: string;
+    role: Role;
     avatar: string;
   };
 }
