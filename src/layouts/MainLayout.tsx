@@ -1,22 +1,44 @@
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 
-import { LayoutDashboard, Settings, Users } from 'lucide-react';
+import { LayoutDashboard, Settings, Shield, Users } from 'lucide-react';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 
+import { permissionRoutes } from '@/router/permissionConfig';
 import { Header, Sidebar, type NavigationItem as SidebarNavigationItem } from '@/shared/components';
-import { useLogout } from '@/shared/hooks';
+import { useLogout, usePermissions } from '@/shared/hooks';
 
-const navigation: SidebarNavigationItem[] = [
-  { name: 'Dashboard', href: '/dashboard', icon: LayoutDashboard },
-  { name: 'Users', href: '/users', icon: Users },
-  { name: 'Settings', href: '/settings', icon: Settings },
-];
+// Icon mapping for menu items
+const iconMap = {
+  dashboard: LayoutDashboard,
+  users: Users,
+  shield: Shield,
+  settings: Settings,
+} as const;
 
 const MainLayout = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
   const logoutMutation = useLogout();
+  const { getAccessibleMenuItems } = usePermissions();
+
+  // Generate navigation items from permission config
+  const navigation: SidebarNavigationItem[] = useMemo(() => {
+    const accessibleRoutes = getAccessibleMenuItems(permissionRoutes);
+
+    return accessibleRoutes
+      .filter((route) => route.menuTitle && !route.hideInMenu)
+      .map((route) => ({
+        name: route.menuTitle!,
+        href: route.path!,
+        icon: route.menuIcon ? iconMap[route.menuIcon as keyof typeof iconMap] : LayoutDashboard,
+      }))
+      .sort((a, b) => {
+        const routeA = permissionRoutes.find((r) => r.path === a.href);
+        const routeB = permissionRoutes.find((r) => r.path === b.href);
+        return (routeA?.menuOrder || 999) - (routeB?.menuOrder || 999);
+      });
+  }, [getAccessibleMenuItems]);
 
   const handleNavigation = (href: string) => {
     navigate(href);
