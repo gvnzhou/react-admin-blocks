@@ -1,44 +1,16 @@
-import React from 'react';
+import { BrowserRouter } from 'react-router-dom';
 
-import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
+import PermissionRouteGenerator from './PermissionRouteGenerator';
 
-import LoginLayout from '@/layouts/LoginLayout';
-import MainLayout from '@/layouts/MainLayout';
-import DashboardPage from '@/pages/DashboardPage';
-import LoginPage from '@/pages/LoginPage';
-import UserListPage from '@/pages/UserListPage';
-import ProtectedRoute from '@/shared/components/auth/ProtectedRoute';
-
-const AppRouter: React.FC = () => (
+/**
+ * Application Router - Uses the config-driven permission routing system
+ *
+ * All routes are now managed through the permissionConfig.ts file
+ * Supports role- and permission-based route access control
+ */
+const AppRouter = () => (
   <BrowserRouter>
-    <Routes>
-      {/* Login page */}
-      <Route element={<LoginLayout />}>
-        <Route path="/login" element={<LoginPage />} />
-      </Route>
-
-      {/* Protected routes */}
-      <Route
-        element={
-          <ProtectedRoute>
-            <MainLayout />
-          </ProtectedRoute>
-        }
-      >
-        <Route path="/" element={<Navigate to="/dashboard" replace />} />
-        <Route path="/dashboard" element={<DashboardPage />} />
-        <Route path="/users" element={<UserListPage />} />
-        {/* Other business routes */}
-      </Route>
-
-      {/* 404 page */}
-      <Route
-        path="*"
-        element={
-          <div className="flex items-center justify-center h-screen text-2xl">404 Not Found</div>
-        }
-      />
-    </Routes>
+    <PermissionRouteGenerator />
   </BrowserRouter>
 );
 
