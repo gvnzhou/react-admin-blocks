@@ -1,6 +1,4 @@
-import React from "react";
-
-const UserListPage: React.FC = () => {
+const UserListPage = () => {
   return (
     <div>
       <h1 className="text-2xl font-bold mb-4">User List</h1>
