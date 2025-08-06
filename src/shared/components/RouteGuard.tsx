@@ -1,12 +1,10 @@
 import React from 'react';
 
-import { useSelector } from 'react-redux';
 import { Navigate, useLocation } from 'react-router-dom';
 
 import { Permission, Role } from '@/router/permissionConfig';
 import { Card, CardContent } from '@/shared/components';
 import { useAuthStatus, usePermissions } from '@/shared/hooks';
-import type { RootState } from '@/store';
 
 interface RouteGuardProps {
   children: React.ReactNode;
@@ -28,24 +26,7 @@ interface RouteGuardProps {
     missingPermissions?: Permission[];
     missingRoles?: Role[];
   }>;
-  loadingComponent?: React.ComponentType;
 }
-
-/**
- * Default loading component
- */
-const DefaultLoading = () => (
-  <Card className="w-full max-w-md shadow-lg mx-auto mt-8">
-    <CardContent className="pt-6">
-      <div className="flex items-center justify-center py-8">
-        <div className="text-center space-y-4">
-          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary mx-auto"></div>
-          <div className="text-lg text-muted-foreground">Loading...</div>
-        </div>
-      </div>
-    </CardContent>
-  </Card>
-);
 
 /**
  * Default access denied component
@@ -146,11 +127,9 @@ const RouteGuard = ({
   // Redirection configuration
   redirectTo = '/dashboard',
   accessDeniedComponent: AccessDeniedComponent = DefaultAccessDenied,
-  loadingComponent: LoadingComponent = DefaultLoading,
 }: RouteGuardProps) => {
   const location = useLocation();
-  const { isAuthenticated, isLoading: authLoading } = useAuthStatus();
-  const { isLoading: permissionLoading } = useSelector((state: RootState) => state.permission);
+  const { isAuthenticated } = useAuthStatus();
   const {
     hasAnyPermission,
     hasAllPermissions,
@@ -159,11 +138,6 @@ const RouteGuard = ({
     userPermissions,
     userRoles,
   } = usePermissions();
-
-  // Show loading while checking authentication or permissions
-  if (authLoading || permissionLoading) {
-    return <LoadingComponent />;
-  }
 
   // === Guest-only routes ===
   if (guestOnly) {
