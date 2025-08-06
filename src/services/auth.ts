@@ -1,4 +1,4 @@
-import { Role } from '@/router/permissionConfig';
+import { Permission, Role } from '@/router/permissionConfig';
 import type { LoginForm } from '@/shared/schemas/auth';
 
 import { fetcher } from './fetcher';
@@ -11,8 +11,9 @@ export interface LoginResponse {
     id: number;
     name: string;
     username: string;
-    role: Role;
+    roles: Role[];
     avatar: string;
+    permissions: Permission[];
   };
 }
 
