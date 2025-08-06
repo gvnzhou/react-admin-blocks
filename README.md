@@ -165,7 +165,12 @@ src/
   ├── shared/           # Shared components and utilities across features
   │   ├── components/   # Reusable UI components
   │   │   ├── layout/   # Layout components (Header, Sidebar, etc.)
-  │   │   ├── ui/       # Base UI components (Button, Modal, Table, etc.)
+  │   │   │   ├── Header.tsx
+  │   │   │   └── Sidebar.tsx
+  │   │   ├── ui/       # Base shadcn/ui components
+  │   │   │   ├── button.tsx
+  │   │   │   ├── card.tsx
+  │   │   │   └── input.tsx
   │   │   ├── RouteGuard.tsx      # Route-level permission control
   │   │   ├── ComponentGuard.tsx  # Component-level permission control
   │   │   └── index.ts  # Unified component exports
@@ -173,24 +178,39 @@ src/
   │   │   ├── useAuth.ts         # Authentication hooks
   │   │   ├── usePermissions.ts  # Permission checking hooks
   │   │   └── index.ts  # Unified hook exports
-  │   ├── schemas/      # Zod validation schemas with auto-generated TypeScript types
+  │   ├── schemas/      # Zod validation schemas
+  │   │   └── auth.ts
   │   └── locales/      # i18n resources
   ├── layouts/          # Layout components (main frame, login layout, etc.)
+  │   ├── MainLayout.tsx
+  │   └── LoginLayout.tsx
   ├── lib/              # Third-party library configurations and utilities
   ├── mocks/            # MSW mock handlers and browser setup
-  ├── pages/            # Route entry pages (aggregating feature pages)
+  │   ├── handlers.ts
+  │   └── browser.ts
+  ├── pages/            # Route entry pages
+  │   ├── DashboardPage.tsx
+  │   ├── LoginPage.tsx
+  │   ├── NotFoundPage.tsx
+  │   └── UserListPage.tsx
   ├── router/           # Route configuration
   │   ├── permissionConfig.ts      # Centralized route & permission config
   │   ├── PermissionRouteGenerator.tsx  # Dynamic route generation
   │   └── index.tsx     # Main router setup
   ├── services/         # API abstraction (fetcher instance, API methods)
+  │   ├── fetcher.ts
+  │   └── auth.ts
   ├── store/            # Global state management (Redux Toolkit)
-  │   ├── authSlice.ts       # Authentication state
-  │   ├── permissionSlice.ts # User roles & permissions state
+  │   ├── userSlice.ts       # User authentication & roles state
+  │   ├── uiSlice.ts         # UI state management
   │   └── index.ts           # Store configuration
   ├── styles/           # Global styles (Tailwind CSS configuration)
+  │   ├── globals.css
+  │   ├── themes.css
+  │   └── variables.css
   ├── types/            # Pure TypeScript type definitions
   ├── utils/            # Utility functions
+  │   └── cn.ts         # Tailwind class merging utility
   ├── App.tsx           # App entry component
   ├── main.tsx          # Application render entry point
   └── vite-env.d.ts     # Vite environment type definitions
