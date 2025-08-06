@@ -208,12 +208,3 @@ src/
 | 📝 Dynamic Forms        | 🔄     | Permission-aware form fields and actions                  |
 | 📁 File Upload          | 🔄     | Role-based file operations                                |
 | 🌍 i18n Support         | 🔄     | Multi-language admin interface                            |
-
-### **Recently Added: Advanced Permission System** 🆕
-
-- ✅ **Dual-layer Access Control**: Route-level + Component-level guards
-- ✅ **Config-driven Architecture**: Centralized permission & route management
-- ✅ **Flexible Permission Hooks**: Easy integration in any component
-- ✅ **Type-safe Permissions**: Full TypeScript support for roles & permissions
-- ✅ **Automatic Route Generation**: Dynamic routing based on user permissions
-- ✅ **Guest/Auth Flow**: Seamless login/logout with proper redirections
