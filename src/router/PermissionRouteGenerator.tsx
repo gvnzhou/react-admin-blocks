@@ -6,8 +6,9 @@ import LoginLayout from '@/layouts/LoginLayout';
 import MainLayout from '@/layouts/MainLayout';
 import { RouteGuard } from '@/shared/components';
 import { useAuthStatus } from '@/shared/hooks';
+import type { PermissionRouteObject } from '@/types/auth';
 
-import { type PermissionRouteObject, permissionRoutes } from './permissionConfig';
+import { permissionRoutes } from './permissionConfig';
 
 /**
  * Index route redirect component
