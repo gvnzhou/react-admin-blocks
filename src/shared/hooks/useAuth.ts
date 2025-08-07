@@ -4,10 +4,11 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
 
-import { type LoginResponse, authApi } from '@/services/auth';
+import { authApi } from '@/services/auth';
 import type { LoginForm } from '@/shared/schemas/auth';
 import { type RootState } from '@/store';
 import { initializeAuth, loginSuccess, logout as logoutAction } from '@/store/userSlice';
+import type { LoginResponse } from '@/types/auth';
 
 // Auth status hook
 export const useAuthStatus = () => {
