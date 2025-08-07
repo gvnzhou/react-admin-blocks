@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { usePermissionCheck, usePermissions } from '@/shared/hooks';
-import type { Permission, Role } from '@/types/auth';
+import type { Permission, Role } from '@/types/permission';
 
 interface ComponentGuardProps {
   children: React.ReactNode;

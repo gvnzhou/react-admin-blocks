@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 
 import { ROLES } from '@/shared/constants';
 import type { RootState } from '@/store';
-import type { Permission, PermissionRouteObject, Role } from '@/types/auth';
+import type { Permission, PermissionRouteObject, Role } from '@/types/permission';
 
 /**
  * Permission check Hook

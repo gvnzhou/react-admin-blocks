@@ -4,7 +4,7 @@ import { Navigate, useLocation } from 'react-router-dom';
 
 import { Card, CardContent } from '@/shared/components';
 import { useAuthStatus, usePermissions } from '@/shared/hooks';
-import type { Permission, Role } from '@/types/auth';
+import type { Permission, Role } from '@/types/permission';
 
 interface RouteGuardProps {
   children: React.ReactNode;

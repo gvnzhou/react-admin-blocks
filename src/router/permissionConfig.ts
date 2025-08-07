@@ -3,7 +3,7 @@ import DashboardPage from '@/pages/DashboardPage';
 import LoginPage from '@/pages/LoginPage';
 import NotFoundPage from '@/pages/NotFoundPage';
 import { PERMISSIONS, ROLES } from '@/shared/constants';
-import type { PermissionRouteObject } from '@/types/auth';
+import type { PermissionRouteObject } from '@/types/permission';
 
 /**
  * Complete route permission configuration

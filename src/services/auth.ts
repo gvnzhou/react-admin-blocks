@@ -1,26 +1,7 @@
 import type { LoginForm } from '@/shared/schemas/auth';
-import type { Permission, Role } from '@/types/auth';
+import type { LoginResponse } from '@/types/auth';
 
 import { fetcher } from './fetcher';
-
-// API response types
-export interface LoginResponse {
-  success: boolean;
-  token: string;
-  user: {
-    id: number;
-    name: string;
-    username: string;
-    roles: Role[];
-    avatar: string;
-    permissions: Permission[];
-  };
-}
-
-export interface LoginErrorResponse {
-  success: false;
-  message: string;
-}
 
 // Auth API functions
 export const authApi = {

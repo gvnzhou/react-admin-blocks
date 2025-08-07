@@ -1,4 +1,4 @@
-import type { Permission, Role } from '@/types/auth';
+import type { Permission, Role } from '@/types/permission';
 
 // Permission constants
 export const PERMISSIONS = {
