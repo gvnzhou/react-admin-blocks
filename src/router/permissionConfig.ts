@@ -2,10 +2,10 @@ import type React from 'react';
 
 import type { RouteObject } from 'react-router-dom';
 
+import { UserListPage } from '@/features/user-management';
 import DashboardPage from '@/pages/DashboardPage';
 import LoginPage from '@/pages/LoginPage';
 import NotFoundPage from '@/pages/NotFoundPage';
-import UserListPage from '@/pages/UserListPage';
 
 // Permission constants
 export const Permission = {
@@ -44,7 +44,7 @@ export type Role = (typeof Role)[keyof typeof Role];
 // Extended route configuration interface
 export interface PermissionRouteObject extends Omit<RouteObject, 'children' | 'element'> {
   // Element can be component type or function
-  element?: React.ComponentType<any> | (() => React.ReactElement) | React.ReactElement | null;
+  element?: React.ComponentType<unknown> | (() => React.ReactElement) | React.ReactElement | null;
   // Basic authentication
   requireAuth?: boolean;
   guestOnly?: boolean;
