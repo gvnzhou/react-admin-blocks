@@ -14,7 +14,6 @@ Built with modern tools and engineering practices to speed up development of int
 - 🧾 Dynamic Forms with Validation and Custom Components
 - 📦 Modular Feature Structure for Easy Expansion
 - 📊 Chart Demos using AntV G2 / ECharts
-- 🌍 i18n Internationalization Support
 - ✅ Type-safe Codebase using TypeScript
 - 🎭 Mock API with MSW (No Backend Required)
 - 🎯 Designed for Real-world Admin Systems
@@ -180,7 +179,6 @@ src/
   │   │   └── index.ts  # Unified hook exports
   │   ├── schemas/      # Zod validation schemas
   │   │   └── auth.ts
-  │   └── locales/      # i18n resources
   ├── layouts/          # Layout components (main frame, login layout, etc.)
   │   ├── MainLayout.tsx
   │   └── LoginLayout.tsx
@@ -227,4 +225,3 @@ src/
 | 📊 Charts Dashboard     | 🔄     | Role-based dashboard with different views                 |
 | 📝 Dynamic Forms        | 🔄     | Permission-aware form fields and actions                  |
 | 📁 File Upload          | 🔄     | Role-based file operations                                |
-| 🌍 i18n Support         | 🔄     | Multi-language admin interface                            |
