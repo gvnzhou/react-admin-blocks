@@ -2,8 +2,9 @@ import { useMemo } from 'react';
 
 import { useSelector } from 'react-redux';
 
-import { Permission, type PermissionRouteObject, Role } from '@/router/permissionConfig';
+import { ROLES } from '@/shared/constants';
 import type { RootState } from '@/store';
+import type { Permission, PermissionRouteObject, Role } from '@/types/auth';
 
 /**
  * Permission check Hook
@@ -106,14 +107,14 @@ export const usePermissions = () => {
    * Check if user is super admin
    */
   const isSuperAdmin = (): boolean => {
-    return hasRole(Role.SUPER_ADMIN);
+    return hasRole(ROLES.SUPER_ADMIN);
   };
 
   /**
    * Check if user is admin
    */
   const isAdmin = (): boolean => {
-    return hasAnyRole([Role.SUPER_ADMIN, Role.ADMIN]);
+    return hasAnyRole([ROLES.SUPER_ADMIN, ROLES.ADMIN]);
   };
 
   return {
@@ -146,7 +147,6 @@ export const usePermissionCheck = (
   requireAllPermissions = false,
   requireAllRoles = false,
 ) => {
-  const { user } = useSelector((state: RootState) => state.user);
   const { hasAnyPermission, hasAllPermissions, hasAnyRole, hasAllRoles } = usePermissions();
 
   return useMemo(() => {
@@ -166,7 +166,6 @@ export const usePermissionCheck = (
 
     return true;
   }, [
-    user,
     permissions,
     roles,
     requireAllPermissions,

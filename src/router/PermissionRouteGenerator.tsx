@@ -20,7 +20,9 @@ const IndexRedirect = () => {
 /**
  * Render component from route configuration
  */
-const renderRouteElement = (Component: any) => {
+const renderRouteElement = (
+  Component: React.ComponentType | React.ReactElement | null | undefined,
+) => {
   if (!Component) return null;
   if (typeof Component === 'function') return <Component />;
   return Component;

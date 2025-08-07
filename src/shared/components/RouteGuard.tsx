@@ -2,9 +2,9 @@ import React from 'react';
 
 import { Navigate, useLocation } from 'react-router-dom';
 
-import { Permission, Role } from '@/router/permissionConfig';
 import { Card, CardContent } from '@/shared/components';
 import { useAuthStatus, usePermissions } from '@/shared/hooks';
+import type { Permission, Role } from '@/types/auth';
 
 interface RouteGuardProps {
   children: React.ReactNode;

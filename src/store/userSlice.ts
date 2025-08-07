@@ -1,6 +1,6 @@
 import { type PayloadAction, createSlice } from '@reduxjs/toolkit';
 
-import { Permission, Role } from '@/router/permissionConfig';
+import type { Permission, Role } from '@/types/auth';
 
 interface User {
   id: number;

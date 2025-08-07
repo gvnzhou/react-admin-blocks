@@ -1,5 +1,5 @@
-import { Permission, Role } from '@/router/permissionConfig';
 import type { LoginForm } from '@/shared/schemas/auth';
+import type { Permission, Role } from '@/types/auth';
 
 import { fetcher } from './fetcher';
 
