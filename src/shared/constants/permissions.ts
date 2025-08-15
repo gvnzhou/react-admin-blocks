@@ -32,9 +32,9 @@ export const ROLES = {
 
 // Role permission mapping
 export const rolePermissions: Record<Role, Permission[]> = {
-  [ROLES.SUPER_ADMIN]: Object.values(PERMISSIONS), // Super admin has all permissions
+  super_admin: Object.values(PERMISSIONS), // Super admin has all permissions
 
-  [ROLES.ADMIN]: [
+  admin: [
     PERMISSIONS.USER_VIEW,
     PERMISSIONS.USER_CREATE,
     PERMISSIONS.USER_EDIT,
@@ -44,16 +44,16 @@ export const rolePermissions: Record<Role, Permission[]> = {
     PERMISSIONS.ANALYTICS_VIEW,
   ],
 
-  [ROLES.MANAGER]: [
+  manager: [
     PERMISSIONS.USER_VIEW,
     PERMISSIONS.USER_CREATE,
     PERMISSIONS.USER_EDIT,
     PERMISSIONS.ANALYTICS_VIEW,
   ],
 
-  [ROLES.USER]: [PERMISSIONS.USER_VIEW],
+  user: [PERMISSIONS.USER_VIEW],
 
-  [ROLES.GUEST]: [],
+  guest: [],
 };
 
 /**
