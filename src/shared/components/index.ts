@@ -17,3 +17,7 @@ export { default as Sidebar, type NavigationItem } from './layout/Sidebar';
 export * from './ui/button';
 export * from './ui/card';
 export * from './ui/input';
+export * from './ui/dialog';
+export * from './ui/table';
+export * from './ui/checkbox';
+export * from './ui/select';
