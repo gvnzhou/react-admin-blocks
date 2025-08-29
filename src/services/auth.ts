@@ -16,9 +16,7 @@ export const authApi = {
   },
 
   logout: async (): Promise<void> => {
-    // Clear token from localStorage
-    localStorage.removeItem('token');
-
+    // Logout is now handled entirely in the Redux slice
     // In a real app, you might also call a logout endpoint
     // await fetcher('/api/auth/logout', { method: 'POST' });
   },

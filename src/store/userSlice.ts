@@ -1,6 +1,6 @@
 import { type PayloadAction, createSlice } from '@reduxjs/toolkit';
 
-import type { AuthState } from '@/types/auth';
+import type { AuthState, User } from '@/types/auth';
 import type { Permission, Role } from '@/types/permission';
 
 type UserState = AuthState;
@@ -32,6 +32,11 @@ const userSlice = createSlice({
       state.token = action.payload.token;
       state.roles = action.payload.roles;
       state.permissions = action.payload.permissions;
+
+      // Store in localStorage for persistence
+      localStorage.setItem('user', JSON.stringify(action.payload.user));
+      localStorage.setItem('roles', JSON.stringify(action.payload.roles));
+      localStorage.setItem('permissions', JSON.stringify(action.payload.permissions));
     },
 
     // Login failure
@@ -50,6 +55,12 @@ const userSlice = createSlice({
       state.token = null;
       state.roles = ['guest'] as Role[];
       state.permissions = [];
+
+      // Clear localStorage
+      localStorage.removeItem('token');
+      localStorage.removeItem('user');
+      localStorage.removeItem('roles');
+      localStorage.removeItem('permissions');
     },
 
     // Update user information
@@ -88,15 +99,35 @@ const userSlice = createSlice({
       state.token = null;
       state.roles = ['guest'] as Role[];
       state.permissions = [];
+
+      // Clear localStorage
+      localStorage.removeItem('token');
+      localStorage.removeItem('user');
+      localStorage.removeItem('roles');
+      localStorage.removeItem('permissions');
     },
 
     // Initialize authentication state
     initializeAuth(state) {
       const token = localStorage.getItem('token');
-      if (token) {
-        state.isAuthenticated = true;
-        state.token = token;
-        // User/roles/permissions should be fetched separately if needed
+      const userData = localStorage.getItem('user');
+      const userRoles = localStorage.getItem('roles');
+      const userPermissions = localStorage.getItem('permissions');
+
+      if (token && userData && userRoles && userPermissions) {
+        try {
+          state.isAuthenticated = true;
+          state.token = token;
+          state.user = JSON.parse(userData);
+          state.roles = JSON.parse(userRoles);
+          state.permissions = JSON.parse(userPermissions);
+        } catch {
+          // If parsing fails, clear invalid data
+          localStorage.removeItem('token');
+          localStorage.removeItem('user');
+          localStorage.removeItem('roles');
+          localStorage.removeItem('permissions');
+        }
       }
     },
   },

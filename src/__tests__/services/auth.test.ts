@@ -89,20 +89,14 @@ describe('authApi', () => {
   });
 
   describe('logout', () => {
-    it('should remove token from localStorage', async () => {
+    it('should complete successfully', async () => {
       await authApi.logout();
-
-      expect(localStorageMock.removeItem).toHaveBeenCalledWith('token');
+      // Logout no longer handles localStorage - this is now done in Redux slice
     });
 
     it('should complete successfully even if localStorage is not available', async () => {
-      // Mock localStorage.removeItem to throw an error
-      localStorageMock.removeItem.mockImplementation(() => {
-        throw new Error('localStorage not available');
-      });
-
-      // Should throw the localStorage error since authApi.logout doesn't handle it
-      await expect(authApi.logout()).rejects.toThrow('localStorage not available');
+      await authApi.logout();
+      // Logout no longer handles localStorage directly
     });
   });
 
@@ -172,7 +166,7 @@ describe('authApi', () => {
 
       // Logout
       await authApi.logout();
-      expect(localStorageMock.removeItem).toHaveBeenCalledWith('token');
+      // Logout no longer handles localStorage - this is now done in Redux slice
     });
 
     it('should handle failed login followed by successful retry', async () => {
