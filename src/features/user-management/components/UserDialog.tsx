@@ -19,6 +19,7 @@ interface UserDialogProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
   user?: User | null;
+  dialogType?: 'create' | 'edit' | 'copy';
   onSubmit: (data: CreateUserForm | UpdateUserForm) => void;
   loading?: boolean;
 }
@@ -40,10 +41,12 @@ const UserDialog: React.FC<UserDialogProps> = ({
   open,
   onOpenChange,
   user,
+  dialogType = 'create',
   onSubmit,
   loading = false,
 }) => {
-  const isEdit = !!user;
+  const isEdit = dialogType === 'edit';
+  const isCopy = dialogType === 'copy';
 
   const [formData, setFormData] = React.useState<CreateUserForm>({
     username: '',
@@ -56,11 +59,11 @@ const UserDialog: React.FC<UserDialogProps> = ({
 
   // Initialize form data when dialog opens or user changes
   React.useEffect(() => {
-    if (user) {
+    if (user && (isEdit || isCopy)) {
       setFormData({
-        username: user.username,
-        email: user.email,
-        name: user.name,
+        username: isCopy ? `${user.username}_copy` : user.username,
+        email: isCopy ? `copy_${user.email}` : user.email,
+        name: isCopy ? `${user.name} (Copy)` : user.name,
         roles: user.roles,
         department: user.department || '',
         status: user.status,
@@ -75,7 +78,7 @@ const UserDialog: React.FC<UserDialogProps> = ({
         status: 'active',
       });
     }
-  }, [user, open]);
+  }, [user, isEdit, isCopy, open]);
 
   const handleInputChange = (field: keyof CreateUserForm, value: string) => {
     setFormData((prev) => ({
@@ -114,9 +117,13 @@ const UserDialog: React.FC<UserDialogProps> = ({
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="max-w-md">
         <DialogHeader>
-          <DialogTitle>{isEdit ? 'Edit User' : 'Create User'}</DialogTitle>
+          <DialogTitle>{isEdit ? 'Edit User' : isCopy ? 'Copy User' : 'Create User'}</DialogTitle>
           <DialogDescription>
-            {isEdit ? 'Modify user information' : 'Fill in user details'}
+            {isEdit
+              ? 'Modify user information'
+              : isCopy
+                ? 'Create a new user based on existing data'
+                : 'Fill in user details'}
           </DialogDescription>
         </DialogHeader>
 
@@ -174,7 +181,9 @@ const UserDialog: React.FC<UserDialogProps> = ({
             <label className="text-sm font-medium">Status</label>
             <Select
               value={formData.status}
-              onChange={(e) => handleInputChange('status', e.target.value as 'active' | 'inactive')}
+              onChange={(e) =>
+                handleInputChange('status', e.target.value as 'active' | 'inactive' | 'suspended')
+              }
             >
               <option value="active">Active</option>
               <option value="inactive">Inactive</option>

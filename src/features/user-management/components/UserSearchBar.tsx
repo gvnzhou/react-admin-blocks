@@ -1,8 +1,24 @@
-import * as React from 'react';
+import { Check, ChevronDown } from 'lucide-react';
 
 import { Button } from '@/shared/components/ui/button';
+import {
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandList,
+} from '@/shared/components/ui/command';
 import { Input } from '@/shared/components/ui/input';
-import { Select } from '@/shared/components/ui/select';
+import { Popover, PopoverContent, PopoverTrigger } from '@/shared/components/ui/popover';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/shared/components/ui/select';
+import { cn } from '@/utils/cn';
 
 import type { UserSearchParams } from '../types';
 
@@ -13,10 +29,31 @@ interface UserSearchBarProps {
 }
 
 const UserSearchBar: React.FC<UserSearchBarProps> = ({ searchParams, onSearchChange, onReset }) => {
+  const [departmentOpen, setDepartmentOpen] = React.useState(false);
+
+  const departments = [
+    { value: 'engineering', label: 'Engineering' },
+    { value: 'marketing', label: 'Marketing' },
+    { value: 'sales', label: 'Sales' },
+    { value: 'hr', label: 'HR' },
+    { value: 'finance', label: 'Finance' },
+    { value: 'operations', label: 'Operations' },
+    { value: 'design', label: 'Design' },
+    { value: 'product', label: 'Product' },
+  ];
   const handleInputChange = (field: keyof UserSearchParams, value: string) => {
     onSearchChange({
       ...searchParams,
       [field]: value || undefined,
+      page: 1, // Reset to first page when searching
+    });
+  };
+
+  const handleSelectChange = (field: keyof UserSearchParams, value: string) => {
+    const actualValue = value === 'all' ? undefined : value;
+    onSearchChange({
+      ...searchParams,
+      [field]: actualValue,
       page: 1, // Reset to first page when searching
     });
   };
@@ -41,41 +78,101 @@ const UserSearchBar: React.FC<UserSearchBarProps> = ({ searchParams, onSearchCha
         {/* Status Filter */}
         <div>
           <Select
-            value={searchParams.status || ''}
-            onChange={(e) => handleInputChange('status', e.target.value)}
+            value={searchParams.status || 'all'}
+            onValueChange={(value) => handleSelectChange('status', value)}
           >
-            <option value="">All Status</option>
-            <option value="active">Active</option>
-            <option value="inactive">Inactive</option>
-            <option value="suspended">Suspended</option>
+            <SelectTrigger className="w-full">
+              <SelectValue placeholder="All Status" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="all">All Status</SelectItem>
+              <SelectItem value="active">Active</SelectItem>
+              <SelectItem value="inactive">Inactive</SelectItem>
+              <SelectItem value="suspended">Suspended</SelectItem>
+            </SelectContent>
           </Select>
         </div>
 
         {/* Role Filter */}
         <div>
           <Select
-            value={searchParams.role || ''}
-            onChange={(e) => handleInputChange('role', e.target.value)}
+            value={searchParams.role || 'all'}
+            onValueChange={(value) => handleSelectChange('role', value)}
           >
-            <option value="">All Roles</option>
-            <option value="admin">Admin</option>
-            <option value="manager">Manager</option>
-            <option value="user">User</option>
+            <SelectTrigger className="w-full">
+              <SelectValue placeholder="All Roles" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="all">All Roles</SelectItem>
+              <SelectItem value="admin">Admin</SelectItem>
+              <SelectItem value="manager">Manager</SelectItem>
+              <SelectItem value="user">User</SelectItem>
+            </SelectContent>
           </Select>
         </div>
 
         {/* Department Filter */}
         <div>
-          <Select
-            value={searchParams.department || ''}
-            onChange={(e) => handleInputChange('department', e.target.value)}
-          >
-            <option value="">All Departments</option>
-            <option value="engineering">Engineering</option>
-            <option value="marketing">Marketing</option>
-            <option value="sales">Sales</option>
-            <option value="hr">HR</option>
-          </Select>
+          <Popover open={departmentOpen} onOpenChange={setDepartmentOpen}>
+            <PopoverTrigger asChild>
+              <Button
+                variant="outline"
+                role="combobox"
+                aria-expanded={departmentOpen}
+                className="w-full justify-between"
+              >
+                {searchParams.department
+                  ? departments.find((dept) => dept.value === searchParams.department)?.label
+                  : 'All Departments'}
+                <ChevronDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+              </Button>
+            </PopoverTrigger>
+            <PopoverContent className="w-full p-0">
+              <Command>
+                <CommandInput placeholder="Search departments..." />
+                <CommandList>
+                  <CommandEmpty>No department found.</CommandEmpty>
+                  <CommandGroup>
+                    <CommandItem
+                      value="all"
+                      onSelect={() => {
+                        handleSelectChange('department', 'all');
+                        setDepartmentOpen(false);
+                      }}
+                    >
+                      <Check
+                        className={cn(
+                          'mr-2 h-4 w-4',
+                          !searchParams.department ? 'opacity-100' : 'opacity-0',
+                        )}
+                      />
+                      All Departments
+                    </CommandItem>
+                    {departments.map((department) => (
+                      <CommandItem
+                        key={department.value}
+                        value={department.value}
+                        onSelect={(currentValue) => {
+                          handleSelectChange('department', currentValue);
+                          setDepartmentOpen(false);
+                        }}
+                      >
+                        <Check
+                          className={cn(
+                            'mr-2 h-4 w-4',
+                            searchParams.department === department.value
+                              ? 'opacity-100'
+                              : 'opacity-0',
+                          )}
+                        />
+                        {department.label}
+                      </CommandItem>
+                    ))}
+                  </CommandGroup>
+                </CommandList>
+              </Command>
+            </PopoverContent>
+          </Popover>
         </div>
       </div>
 

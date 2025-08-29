@@ -17,7 +17,7 @@ export interface CreateUserForm {
   name: string;
   roles: string[];
   department?: string;
-  status: 'active' | 'inactive';
+  status: 'active' | 'inactive' | 'suspended';
 }
 
 export interface UpdateUserForm extends Partial<CreateUserForm> {

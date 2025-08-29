@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { Navigate, useLocation } from 'react-router-dom';
 
 import { Card, CardContent } from '@/shared/components';

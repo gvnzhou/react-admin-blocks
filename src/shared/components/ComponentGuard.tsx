@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { usePermissionCheck, usePermissions } from '@/shared/hooks';
 import type { Permission, Role } from '@/types/permission';
 
