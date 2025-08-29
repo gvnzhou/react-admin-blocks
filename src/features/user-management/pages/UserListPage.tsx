@@ -9,14 +9,7 @@ import DeleteConfirmDialog from '../components/DeleteConfirmDialog';
 import UserDialog from '../components/UserDialog';
 import UserSearchBar from '../components/UserSearchBar';
 import UserTable from '../components/UserTable';
-import {
-  useCreateUser,
-  useDeleteUser,
-  useDeleteUsers,
-  useDuplicateUser,
-  useUpdateUser,
-  useUsers,
-} from '../hooks/useUsers';
+import { useCreateUser, useDeleteUser, useUpdateUser, useUsers } from '../hooks/useUsers';
 import type { CreateUserForm, UpdateUserForm, User, UserSearchParams } from '../types';
 
 const UserListPage = () => {
@@ -25,9 +18,8 @@ const UserListPage = () => {
     page: 1,
     limit: 10,
   });
-  const [selectedUsers, setSelectedUsers] = React.useState<number[]>([]);
   const [dialogState, setDialogState] = React.useState<{
-    type: 'create' | 'edit' | null;
+    type: 'create' | 'edit' | 'copy' | null;
     user?: User | null;
     open: boolean;
   }>({
@@ -48,8 +40,6 @@ const UserListPage = () => {
   const createUser = useCreateUser();
   const updateUser = useUpdateUser();
   const deleteUser = useDeleteUser();
-  const deleteUsers = useDeleteUsers();
-  const duplicateUser = useDuplicateUser();
 
   const users = usersResponse?.data || [];
   const total = usersResponse?.total || 0;
@@ -57,7 +47,6 @@ const UserListPage = () => {
   // Event handlers
   const handleSearchChange = (newParams: UserSearchParams) => {
     setSearchParams(newParams);
-    setSelectedUsers([]); // Clear selection when searching
   };
 
   const handleSearchReset = () => {
@@ -65,15 +54,6 @@ const UserListPage = () => {
       page: 1,
       limit: 10,
     });
-    setSelectedUsers([]);
-  };
-
-  const handleSelectUser = (userId: number, selected: boolean) => {
-    setSelectedUsers((prev) => (selected ? [...prev, userId] : prev.filter((id) => id !== userId)));
-  };
-
-  const handleSelectAll = (selected: boolean) => {
-    setSelectedUsers(selected ? users.map((user) => user.id) : []);
   };
 
   const handleCreate = () => {
@@ -99,33 +79,22 @@ const UserListPage = () => {
     });
   };
 
-  const handleBatchDelete = () => {
-    const usersToDelete = users.filter((user) => selectedUsers.includes(user.id));
-    setDeleteDialogState({
-      users: usersToDelete,
+  const handleDuplicate = (user: User) => {
+    setDialogState({
+      type: 'copy',
+      user,
       open: true,
     });
   };
 
-  const handleDuplicate = async (user: User) => {
-    try {
-      await duplicateUser.mutateAsync(user.id);
-      // Success message could be shown here
-    } catch (error) {
-      console.error('Failed to duplicate user:', error);
-      // Error message could be shown here
-    }
-  };
-
   const handleDialogSubmit = async (data: CreateUserForm | UpdateUserForm) => {
     try {
-      if (dialogState.type === 'create') {
+      if (dialogState.type === 'create' || dialogState.type === 'copy') {
         await createUser.mutateAsync(data as CreateUserForm);
       } else if (dialogState.type === 'edit') {
         await updateUser.mutateAsync(data as UpdateUserForm);
       }
       setDialogState({ type: null, user: null, open: false });
-      setSelectedUsers([]);
     } catch (error) {
       console.error('Failed to save user:', error);
       // Error message could be shown here
@@ -138,12 +107,9 @@ const UserListPage = () => {
 
       if (userIds.length === 1) {
         await deleteUser.mutateAsync(userIds[0]);
-      } else {
-        await deleteUsers.mutateAsync(userIds);
       }
 
       setDeleteDialogState({ users: [], open: false });
-      setSelectedUsers([]);
     } catch (error) {
       console.error('Failed to delete users:', error);
       // Error message could be shown here
@@ -152,12 +118,11 @@ const UserListPage = () => {
 
   const handlePageChange = (page: number) => {
     setSearchParams((prev) => ({ ...prev, page }));
-    setSelectedUsers([]);
   };
 
   // Loading states
   const isSubmitting = createUser.isPending || updateUser.isPending;
-  const isDeleting = deleteUser.isPending || deleteUsers.isPending;
+  const isDeleting = deleteUser.isPending;
 
   return (
     <div className="space-y-6">
@@ -169,14 +134,6 @@ const UserListPage = () => {
         </div>
 
         <div className="flex items-center gap-2">
-          {selectedUsers.length > 0 && (
-            <ComponentGuard permissions={[PERMISSIONS.USER_DELETE]}>
-              <Button variant="destructive" onClick={handleBatchDelete}>
-                Batch Delete ({selectedUsers.length})
-              </Button>
-            </ComponentGuard>
-          )}
-
           <ComponentGuard permissions={[PERMISSIONS.USER_CREATE]}>
             <Button onClick={handleCreate}>Add User</Button>
           </ComponentGuard>
@@ -205,9 +162,6 @@ const UserListPage = () => {
         <CardContent>
           <UserTable
             users={users}
-            selectedUsers={selectedUsers}
-            onSelectUser={handleSelectUser}
-            onSelectAll={handleSelectAll}
             onEdit={handleEdit}
             onDelete={handleDelete}
             onDuplicate={handleDuplicate}
@@ -262,6 +216,7 @@ const UserListPage = () => {
           }
         }}
         user={dialogState.user}
+        dialogType={dialogState.type || 'create'}
         onSubmit={handleDialogSubmit}
         loading={isSubmitting}
       />

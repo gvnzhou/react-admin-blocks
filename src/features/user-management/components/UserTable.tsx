@@ -1,7 +1,6 @@
 import * as React from 'react';
 
 import { Button } from '@/shared/components/ui/button';
-import { Checkbox } from '@/shared/components/ui/checkbox';
 import {
   Table,
   TableBody,
@@ -15,9 +14,6 @@ import type { User } from '../types';
 
 interface UserTableProps {
   users: User[];
-  selectedUsers: number[];
-  onSelectUser: (userId: number, selected: boolean) => void;
-  onSelectAll: (selected: boolean) => void;
   onEdit: (user: User) => void;
   onDelete: (user: User) => void;
   onDuplicate: (user: User) => void;
@@ -26,17 +22,11 @@ interface UserTableProps {
 
 const UserTable: React.FC<UserTableProps> = ({
   users,
-  selectedUsers,
-  onSelectUser,
-  onSelectAll,
   onEdit,
   onDelete,
   onDuplicate,
   loading = false,
 }) => {
-  const isAllSelected = users.length > 0 && selectedUsers.length === users.length;
-  const isIndeterminate = selectedUsers.length > 0 && selectedUsers.length < users.length;
-
   const formatDate = (dateString: string) => {
     return new Date(dateString).toLocaleDateString('zh-CN', {
       year: 'numeric',
@@ -84,13 +74,6 @@ const UserTable: React.FC<UserTableProps> = ({
       <Table>
         <TableHeader>
           <TableRow>
-            <TableHead className="w-12">
-              <Checkbox
-                checked={isAllSelected}
-                indeterminate={isIndeterminate}
-                onChange={(checked) => onSelectAll(checked as boolean)}
-              />
-            </TableHead>
             <TableHead>Username</TableHead>
             <TableHead>Name</TableHead>
             <TableHead>Email</TableHead>
@@ -104,19 +87,13 @@ const UserTable: React.FC<UserTableProps> = ({
         <TableBody>
           {users.length === 0 ? (
             <TableRow>
-              <TableCell colSpan={9} className="text-center py-8 text-muted-foreground">
+              <TableCell colSpan={8} className="text-center py-8 text-muted-foreground">
                 No data available
               </TableCell>
             </TableRow>
           ) : (
             users.map((user) => (
               <TableRow key={user.id}>
-                <TableCell>
-                  <Checkbox
-                    checked={selectedUsers.includes(user.id)}
-                    onChange={(checked) => onSelectUser(user.id, checked as boolean)}
-                  />
-                </TableCell>
                 <TableCell className="font-medium">{user.username}</TableCell>
                 <TableCell>{user.name}</TableCell>
                 <TableCell>{user.email}</TableCell>
@@ -142,14 +119,26 @@ const UserTable: React.FC<UserTableProps> = ({
                 <TableCell>{user.department || '-'}</TableCell>
                 <TableCell>{formatDate(user.createdAt)}</TableCell>
                 <TableCell>
-                  <div className="flex items-center gap-2">
-                    <Button variant="ghost" size="sm" onClick={() => onEdit(user)}>
+                  <div className="flex items-center gap-1">
+                    <Button
+                      size="sm"
+                      onClick={() => onEdit(user)}
+                      className="bg-blue-500 text-white hover:bg-blue-600"
+                    >
                       Edit
                     </Button>
-                    <Button variant="ghost" size="sm" onClick={() => onDuplicate(user)}>
+                    <Button
+                      size="sm"
+                      onClick={() => onDuplicate(user)}
+                      className="bg-green-500 text-white hover:bg-green-600"
+                    >
                       Copy
                     </Button>
-                    <Button variant="ghost" size="sm" onClick={() => onDelete(user)}>
+                    <Button
+                      size="sm"
+                      onClick={() => onDelete(user)}
+                      className="bg-red-500 text-white hover:bg-red-600"
+                    >
                       Delete
                     </Button>
                   </div>
