@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { useEffect, useState } from 'react';
 
 import { Button } from '@/shared/components/ui/button';
 import { Checkbox } from '@/shared/components/ui/checkbox';
@@ -48,7 +48,7 @@ const UserDialog: React.FC<UserDialogProps> = ({
   const isEdit = dialogType === 'edit';
   const isCopy = dialogType === 'copy';
 
-  const [formData, setFormData] = React.useState<CreateUserForm>({
+  const [formData, setFormData] = useState<CreateUserForm>({
     username: '',
     email: '',
     name: '',
@@ -58,7 +58,7 @@ const UserDialog: React.FC<UserDialogProps> = ({
   });
 
   // Initialize form data when dialog opens or user changes
-  React.useEffect(() => {
+  useEffect(() => {
     if (user && (isEdit || isCopy)) {
       setFormData({
         username: isCopy ? `${user.username}_copy` : user.username,

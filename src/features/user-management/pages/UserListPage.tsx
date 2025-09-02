@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { useState } from 'react';
 
 import { ComponentGuard } from '@/shared/components';
 import { Button } from '@/shared/components/ui/button';
@@ -14,11 +14,11 @@ import type { CreateUserForm, UpdateUserForm, User, UserSearchParams } from '../
 
 const UserListPage = () => {
   // State
-  const [searchParams, setSearchParams] = React.useState<UserSearchParams>({
+  const [searchParams, setSearchParams] = useState<UserSearchParams>({
     page: 1,
     limit: 10,
   });
-  const [dialogState, setDialogState] = React.useState<{
+  const [dialogState, setDialogState] = useState<{
     type: 'create' | 'edit' | 'copy' | null;
     user?: User | null;
     open: boolean;
@@ -27,7 +27,7 @@ const UserListPage = () => {
     user: null,
     open: false,
   });
-  const [deleteDialogState, setDeleteDialogState] = React.useState<{
+  const [deleteDialogState, setDeleteDialogState] = useState<{
     users: User[];
     open: boolean;
   }>({

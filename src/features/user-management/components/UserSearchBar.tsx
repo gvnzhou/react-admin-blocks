@@ -1,3 +1,5 @@
+import { useState } from 'react';
+
 import { Check, ChevronDown } from 'lucide-react';
 
 import { Button } from '@/shared/components/ui/button';
@@ -29,7 +31,7 @@ interface UserSearchBarProps {
 }
 
 const UserSearchBar: React.FC<UserSearchBarProps> = ({ searchParams, onSearchChange, onReset }) => {
-  const [departmentOpen, setDepartmentOpen] = React.useState(false);
+  const [departmentOpen, setDepartmentOpen] = useState(false);
 
   const departments = [
     { value: 'engineering', label: 'Engineering' },
