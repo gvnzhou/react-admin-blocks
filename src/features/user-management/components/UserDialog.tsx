@@ -11,7 +11,13 @@ import {
   DialogTitle,
 } from '@/shared/components/ui/dialog';
 import { Input } from '@/shared/components/ui/input';
-import { Select } from '@/shared/components/ui/select';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/shared/components/ui/select';
 
 import type { CreateUserForm, UpdateUserForm, User } from '../types';
 
@@ -167,7 +173,7 @@ const UserDialog: React.FC<UserDialogProps> = ({
                   <Checkbox
                     id={role.value}
                     checked={formData.roles.includes(role.value)}
-                    onChange={(checked) => handleRoleChange(role.value, checked as boolean)}
+                    onCheckedChange={(checked) => handleRoleChange(role.value, checked as boolean)}
                   />
                   <label htmlFor={role.value} className="text-sm">
                     {role.label}
@@ -181,13 +187,18 @@ const UserDialog: React.FC<UserDialogProps> = ({
             <label className="text-sm font-medium">Status</label>
             <Select
               value={formData.status}
-              onChange={(e) =>
-                handleInputChange('status', e.target.value as 'active' | 'inactive' | 'suspended')
+              onValueChange={(value) =>
+                handleInputChange('status', value as 'active' | 'inactive' | 'suspended')
               }
             >
-              <option value="active">Active</option>
-              <option value="inactive">Inactive</option>
-              <option value="suspended">Suspended</option>
+              <SelectTrigger>
+                <SelectValue placeholder="Select status" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="active">Active</SelectItem>
+                <SelectItem value="inactive">Inactive</SelectItem>
+                <SelectItem value="suspended">Suspended</SelectItem>
+              </SelectContent>
             </Select>
           </div>
 
@@ -195,14 +206,18 @@ const UserDialog: React.FC<UserDialogProps> = ({
             <label className="text-sm font-medium">Department</label>
             <Select
               value={formData.department}
-              onChange={(e) => handleInputChange('department', e.target.value)}
+              onValueChange={(value) => handleInputChange('department', value)}
             >
-              <option value="">Select department</option>
-              {DEPARTMENTS.map((dept) => (
-                <option key={dept.value} value={dept.value}>
-                  {dept.label}
-                </option>
-              ))}
+              <SelectTrigger>
+                <SelectValue placeholder="Select department" />
+              </SelectTrigger>
+              <SelectContent>
+                {DEPARTMENTS.map((dept) => (
+                  <SelectItem key={dept.value} value={dept.value}>
+                    {dept.label}
+                  </SelectItem>
+                ))}
+              </SelectContent>
             </Select>
           </div>
 
