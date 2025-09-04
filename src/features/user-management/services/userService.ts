@@ -1,3 +1,5 @@
+import { fetchInterceptor } from '@/services/fetcher';
+
 import type {
   CreateUserForm,
   UpdateUserForm,
@@ -20,7 +22,7 @@ export const userService = {
     });
 
     const url = searchParams.toString() ? `${API_BASE}?${searchParams}` : API_BASE;
-    const response = await fetch(url);
+    const response = await fetchInterceptor.fetch(url);
 
     if (!response.ok) {
       throw new Error('Failed to fetch users');
@@ -31,7 +33,7 @@ export const userService = {
 
   // 获取单个用户
   async getUser(id: number): Promise<User> {
-    const response = await fetch(`${API_BASE}/${id}`);
+    const response = await fetchInterceptor.fetch(`${API_BASE}/${id}`);
 
     if (!response.ok) {
       throw new Error('Failed to fetch user');
@@ -42,7 +44,7 @@ export const userService = {
 
   // 创建用户
   async createUser(data: CreateUserForm): Promise<User> {
-    const response = await fetch(API_BASE, {
+    const response = await fetchInterceptor.fetch(API_BASE, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -59,7 +61,7 @@ export const userService = {
 
   // 更新用户
   async updateUser(data: UpdateUserForm): Promise<User> {
-    const response = await fetch(`${API_BASE}/${data.id}`, {
+    const response = await fetchInterceptor.fetch(`${API_BASE}/${data.id}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -76,7 +78,7 @@ export const userService = {
 
   // 删除用户
   async deleteUser(id: number): Promise<void> {
-    const response = await fetch(`${API_BASE}/${id}`, {
+    const response = await fetchInterceptor.fetch(`${API_BASE}/${id}`, {
       method: 'DELETE',
     });
 
@@ -87,7 +89,7 @@ export const userService = {
 
   // 批量删除用户
   async deleteUsers(ids: number[]): Promise<void> {
-    const response = await fetch(`${API_BASE}/batch`, {
+    const response = await fetchInterceptor.fetch(`${API_BASE}/batch`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
@@ -102,7 +104,7 @@ export const userService = {
 
   // 复制用户
   async duplicateUser(id: number): Promise<User> {
-    const response = await fetch(`${API_BASE}/${id}/duplicate`, {
+    const response = await fetchInterceptor.fetch(`${API_BASE}/${id}/duplicate`, {
       method: 'POST',
     });
 
